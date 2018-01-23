@@ -1,0 +1,23 @@
+SVN基本命令：
+	1.svnadmin create (path)			新建版本库
+	2.svnserve -d -r				监听版本库，后台保持运行
+
+SVN文件配置：
+	1.svnserve.conf文件配置，解除注释并设置：
+		anon-access = none	匿名访问无权限
+		auth-access = write	认证可读写
+		password-db = passwd	开启用户及用户密码的设置文件
+		authz-db = authz	开启用户权限授权的设置文件
+	2.passwd文件中添加用户和用户密码，如：
+		[users]
+		project-one = 123
+		project-two = 111
+		project-three = 131
+	3.authz文件中添加组及设置组成员，授权组的权限，如：
+		[groups]
+		admin = project-one
+		dev = project-two,project-three
+
+		[/]		当前版本库
+		@admin = rw	rw：可读写
+		@dev = r	r：只读
